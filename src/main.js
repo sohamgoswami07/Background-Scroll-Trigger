@@ -11,12 +11,13 @@ document.addEventListener("DOMContentLoaded", () => {
       lenis.raf(time * 1000);
   });
   gsap.ticker.lagSmoothing(0);
-  gsap.ticker.fps(60);
+  gsap.ticker.fps(50);
 
   const nav = document.querySelector(".nav");
   const canvas = document.querySelector("canvas");
   const header = document.querySelector(".header");
   const contents = document.querySelector(".contents");
+  const outro = document.querySelector(".outro-contents");
   const context = canvas.getContext("2d");
 
   const setCanvasSize = () => {
@@ -33,10 +34,10 @@ document.addEventListener("DOMContentLoaded", () => {
     context.scale(pixelRatio, pixelRatio);
   };
   setCanvasSize();
-
-  const frameCount = 790;
+  // Background frame rate
+  const frameCount = 380;
   const currentFrame = (index) => `/Background/Background${(index).toString().padStart(4, "0")}.jpg`;
-
+  
   let images = [];
   let videoFrames = { frame : 0 };
   let imagesToLoad = frameCount;
@@ -93,6 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   gsap.set(contents, { transform: "translateZ(0px)", opacity: 0 });
+  gsap.set(outro, { transform: "translateZ(0px)", opacity: 0 });
 
   const setScrollTrigger = () => {
     ScrollTrigger.create({
@@ -129,13 +131,36 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // second content
-        if (progress <= 0.8) {
-          const scrollProgress = (progress - 0.5) / 0.3;
-          const translateZ = -1000 + scrollProgress * 1000;
-          const opacity = progress <= 0.8 ? (progress - 0.6) / 0.3 : 1;
-          gsap.set(contents, { transform: `translateZ(${translateZ}px)`, opacity });
+        if (progress <= 0.65) {
+          const scrollProgress = (progress - 0.35) / 0.3;
+          const translateZ = -1000 + scrollProgress * 1500;
+          let opacity = 0;
+          if (progress > 0.35 && progress <= 0.4) {
+            const fadeProgress = Math.min((progress - 0.35) / (0.4 - 0.35), 1);
+            opacity = fadeProgress;
+          } else if (progress > 0.4 && progress < 0.6) {
+            opacity = 1;
+          } else if (progress >= 0.6 && progress < 0.65) {
+            const fadeProgress = Math.min((progress - 0.6) / (0.65 - 0.6), 1);
+            opacity = 1 - fadeProgress;
+          }
+          gsap.set(contents, { transform: `translateZ(${translateZ}px)`, opacity: opacity });
         } else {
-          gsap.set(contents, { transform: "translateZ(0px)", opacity: 1 });
+          gsap.set(contents, { transform: "translateZ(500px)", opacity: 0 });
+        }
+
+        // third content
+        if (progress >= 0.75) {
+          const scrollProgress = (progress - 0.75) / 0.25;
+          const translateZ = -1000 + scrollProgress * 1000;
+          let opacity = 1;
+          if (progress <= 0.8) {
+            const fadeProgress = Math.min((progress - 0.75) / (0.8 - 0.75), 1);
+            opacity = fadeProgress;
+          }
+          gsap.set(outro, { transform: `translateZ(${translateZ}px)`, opacity });
+        } else {
+          gsap.set(outro, { transform: `translateZ(0px)`, opacity: 0 });
         }
       },
     });
