@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setCanvasSize();
   // Background frame rate
   const frameCount = 380;
-  const currentFrame = (index) => `/Background/Background${(index).toString().padStart(4, "0")}.jpg`;
+  const currentFrame = (index) => `/Background/Background${(index).toString().padStart(4, "0")}.webp`;
   
   let images = [];
   let videoFrames = { frame : 0 };
