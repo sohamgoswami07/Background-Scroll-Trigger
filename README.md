@@ -75,7 +75,7 @@ http://localhost:3000
 
 ## Live Demo
 
-[View Live Project](https://your-live-demo-link.com](https://sohamgoswami07.github.io/Background-Scroll-Trigger/))
+[View Live Project](https://sohamgoswami07.github.io/Background-Scroll-Trigger/)
 
 ---
 
