@@ -92,5 +92,4 @@ http://localhost:3000
 * Update `constants/imageCoordinates.js` to adjust final positions.
 * Edit `.intro-header h1` and `.outro-header h1` text inside `index.html`.
 
----
 
