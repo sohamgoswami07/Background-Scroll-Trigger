@@ -1,6 +1,7 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from '@studio-freight/lenis';
+import.meta.env.BASE_URL
 
 document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
@@ -36,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setCanvasSize();
   // Background frame rate
   const frameCount = 380;
-  const currentFrame = (index) => `/Background/Background${(index).toString().padStart(4, "0")}.webp`;
+  const currentFrame = (index) => `${import.meta.env.BASE_URL}Background/Background${index.toString().padStart(4, "0")}.webp`;
   
   let images = [];
   let videoFrames = { frame : 0 };
@@ -57,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
         onLoad.call(this);
     };
     img.src = currentFrame(i);
+
     images.push(img);
   }
 

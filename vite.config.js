@@ -2,5 +2,5 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/Background-Scroll-Trigger/',
+  base: '/Background-Scroll-Trigger/'
 });
